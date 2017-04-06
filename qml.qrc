@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>Keypad.qml</file>
+        <file>ButtonItem.qml</file>
+        <file>NoteList.qml</file>
+        <file>NoteListDelegate.qml</file>
+        <file>NoteView.qml</file>
+        <file>ConfirmMessageDialog.qml</file>
+    </qresource>
+</RCC>
