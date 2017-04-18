@@ -1,6 +1,8 @@
 #ifndef NOTEMANAGER_H
 #define NOTEMANAGER_H
 
+#include "lifecycleconsumer.h"
+
 #include <QGuiApplication>
 #include <QObject>
 #include <QQuickView>
@@ -28,8 +30,10 @@ public slots:
 signals:
     void noteTitlesChanged();
     void showConfirmSaveOverwrite();
+    void rebooting();
 
 private:
+    LifeCycleConsumer m_lifeCycle;
     void syncNoteKeys();
     int writeValue(QString key, QString value);
 
@@ -37,7 +41,6 @@ private:
 
     static const QString s_titleDelimiter;
     static const QString s_noteKeyID;
-
 
 };
 

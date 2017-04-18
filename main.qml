@@ -15,12 +15,6 @@ Rectangle {
             height: parent.height - messagebox.height
             noteTextSize: 25
             enabled: keypad.visible
-            onNoteTitleChanged:{
-                if(noteTitle!="")
-                    message.text = qsTr("Note currently opened : ") + noteTitle
-                else
-                    message.text = qsTr("Select note to view/edit >> ")
-            }
         }
         Rectangle{
             id: messagebox
@@ -85,6 +79,14 @@ Rectangle {
             keyBorderColor: "#bbbbbb"
 
             anchors.right: parent.right
+            onVisibleChanged: {
+                if(visible){
+                    message.text = qsTr("Note currently opened : ") + noteView.noteTitle
+                }else{
+                    message.text = qsTr("Select note to view/edit >> ")
+                }
+            }
+
             onKeyPressed:{
                 if(which===keypad.deleteSymbol)
                     noteView.deleteLastChar()
@@ -97,17 +99,21 @@ Rectangle {
             onSave: {
                 var noteText = noteView.text
                 var addingNew = false
-                if(noteView.noteTitle == ""){
-                    noteView.noteTitle = noteText.substring(0,10)
-                    addingNew = true
-                }
+                if(noteText!=""){
+                    if(noteView.noteTitle == ""){
+                        noteView.noteTitle = noteText.substring(0,10)
+                        addingNew = true
+                    }
 
-                if(noteManager.saveNote(noteView.noteTitle,
-                                        noteText,
-                                        !(noteManager.exists(noteView.noteTitle) && addingNew)
-                                        )){
-                    noteView.closedNote()
-                    keypad.visible = false
+                    if(noteManager.saveNote(noteView.noteTitle,
+                                            noteText,
+                                            !(noteManager.exists(noteView.noteTitle) && addingNew)
+                                            )){
+                        noteView.closedNote()
+                        keypad.visible = false
+                    }
+                }else{
+                    emptyNoteMessage.visible = true
                 }
             }
 
@@ -118,6 +124,18 @@ Rectangle {
         }
 
     }
+
+
+    ConfirmMessageDialog{
+        id: emptyNoteMessage
+        visible: false
+        text:qsTr("Your note does not have content, cannot save.")
+        showCancelButton: false
+        onAcceptAction: {
+            emptyNoteMessage.visible=false
+        }
+    }
+
 
     ConfirmMessageDialog{
         id: confirmSaveOverwriteDialog

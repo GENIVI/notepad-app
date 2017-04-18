@@ -4,6 +4,9 @@ Rectangle {
     id:dialogBody
     property alias text: message.text
 
+    property alias showCancelButton: cancelButton.visible
+    property alias showAcceptButton: acceptButton.visible
+
     anchors.fill: parent
     color:"transparent"
 
@@ -12,7 +15,6 @@ Rectangle {
 
     MouseArea{
         anchors.fill: dialogBody
-        onClicked: console.log("hi")
     }
 
     Rectangle{
@@ -31,7 +33,7 @@ Rectangle {
         TextEdit{
             id: message
             height:messageDialog.height - buttonRow.height - 20
-
+            width: messageDialog.width * 0.9
             enabled:false
             font.pixelSize: 20
             clip: true
@@ -52,6 +54,7 @@ Rectangle {
             anchors.bottomMargin:  messageDialog.border.width
 
             ButtonItem{
+                id: acceptButton
                 buttonText: "ok"
 
                 height: parent.height
@@ -68,6 +71,8 @@ Rectangle {
             }
 
             ButtonItem{
+                id: cancelButton
+
                 buttonText: "cancel"
 
                 height: parent.height

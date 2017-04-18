@@ -1,11 +1,13 @@
 TEMPLATE = app
 
-QT += qml quick
+QT += qml quick dbus
 CONFIG += c++11
 
 SOURCES += main.cpp \
     notemanager.cpp \
-    UnixSignalHandler.cpp
+    UnixSignalHandler.cpp \
+    lifecycleconsumeradaptor.cpp \
+    lifecycleconsumer.cpp
 
 INCLUDEPATH += /usr/include \
                 $\{DLT_INCLUDE_DIRS\}
@@ -26,7 +28,9 @@ include(deployment.pri)
 
 HEADERS += \
     notemanager.h \
-    UnixSignalHandler.h
+    UnixSignalHandler.h \
+    lifecycleconsumeradaptor.h \
+    lifecycleconsumer.h
 
 unix: CONFIG += link_pkgconfig
 unix: PKGCONFIG += persistence_client_library
