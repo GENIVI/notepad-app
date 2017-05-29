@@ -7,8 +7,7 @@ SOURCES += main.cpp \
     notemanager.cpp \
     UnixSignalHandler.cpp
 
-INCLUDEPATH += /usr/include \
-                $\{DLT_INCLUDE_DIRS\}
+INCLUDEPATH += $\{DLT_INCLUDE_DIRS\}
 
 LIBS += $\{DLT_LIBRARIES\} \
 
